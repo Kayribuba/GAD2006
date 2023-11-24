@@ -19,7 +19,10 @@ public:
 	ATileGameManager();
 
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* GridSelection;
+		UStaticMeshComponent* GridSelection;
+
+	UPROPERTY(EditAnywhere)
+		UStaticMeshComponent* Display;
 
 protected:
 	// Called when the game starts or when spawned

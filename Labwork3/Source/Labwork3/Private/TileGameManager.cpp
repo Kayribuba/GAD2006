@@ -20,14 +20,22 @@ ATileGameManager::ATileGameManager() :
 	GridSelection = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GridMesh"));
 	GridSelection->SetupAttachment(RootComponent);
 
+	Display = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Display"));
+	Display->SetupAttachment(RootComponent);
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> PlaneMesh(TEXT("StaticMesh'/Engine/BasicShapes/Plane.Plane'"));
 
 	static ConstructorHelpers::FObjectFinder<UMaterialInterface> GridMaterial(TEXT("Material'/Game/UI/MAT_GridSlot.MAT_GridSlot'"));
+
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> DisplayMaterial(TEXT("Material'/Game/Materials/M_Atlas.M_Atlas'"));
 
 	GridSelection->SetStaticMesh(PlaneMesh.Object);
 	GridSelection->SetMaterial(0, GridMaterial.Object);
 	GridSelection->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
+	Display->SetStaticMesh(PlaneMesh.Object);
+	Display->SetMaterial(0, DisplayMaterial.Object);
+	Display->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 // Called when the game starts or when spawned
@@ -45,6 +53,8 @@ void ATileGameManager::BeginPlay()
 		CurrentTileIndex = 0;
 		TileHasChanged();
 	}
+
+	Display->SetRelativeScale3D(FVector(0.083f, 0.083f, 0.1f));
 }
 
 // Called every frame
@@ -113,11 +123,12 @@ void ATileGameManager::OnActorInteraction(AActor* HitActor, FVector& Location, b
 	else
 	{
 		GridSelection->SetWorldLocation(GridLoc + GridOffset);
+		Display->SetWorldLocation(GridLoc + GridOffset);
 	}
 }
 void ATileGameManager::TileHasChanged()
 {
 	UE_LOG(LogTemp, Warning, TEXT("TileType: %s"), *TileTypes[CurrentTileIndex]->GetActorLabel());
 	UStaticMesh* CurrentMesh = TileTypes[CurrentTileIndex]->InstancedMesh->GetStaticMesh();
-	GridSelection->SetStaticMesh(CurrentMesh);
+	Display->SetStaticMesh(CurrentMesh);
 }
