@@ -25,7 +25,7 @@ ATileGameManager::ATileGameManager() :
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> PlaneMesh(TEXT("StaticMesh'/Engine/BasicShapes/Plane.Plane'"));
 
-	static ConstructorHelpers::FObjectFinder<UMaterialInterface> GridMaterial(TEXT("Material'/Game/UI/MAT_GridSlot.MAT_GridSlot'"));
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> GridMaterial(TEXT("/Script/Engine.Material'/Game/UI/MAT_GridSlot.MAT_GridSlot'"));
 
 	static ConstructorHelpers::FObjectFinder<UMaterialInterface> DisplayMaterial(TEXT("Material'/Game/Materials/M_Atlas.M_Atlas'"));
 
