@@ -38,6 +38,9 @@ public:
 	UFUNCTION(Server, Reliable)
 		void ChangeSpeedAtServer(float Speed);
 
+	UPROPERTY(BlueprintReadWrite)
+		float MovementScale;
+
 	float WalkSpeed;
 	float RunSpeed;
 

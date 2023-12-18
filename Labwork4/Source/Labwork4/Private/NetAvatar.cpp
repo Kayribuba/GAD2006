@@ -5,6 +5,7 @@
 #include "GameFrameWork/CharacterMovementComponent.h"
 
 ANetAvatar::ANetAvatar() :
+	MovementScale(1),
 	WalkSpeed(150),
 	RunSpeed(450)
 {
@@ -47,7 +48,7 @@ void ANetAvatar::MoveForward(float Scale)
 	FRotator Rotation = GetController()->GetControlRotation();
 	FRotator YawRotation(0.0f, Rotation.Yaw, 0.0f);
 	FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	AddMovementInput(ForwardDirection, Scale);
+	AddMovementInput(ForwardDirection, Scale * MovementScale);
 }
 
 void ANetAvatar::MoveRight(float Scale)
@@ -55,7 +56,7 @@ void ANetAvatar::MoveRight(float Scale)
 	FRotator Rotation = GetController()->GetControlRotation();
 	FRotator YawRotation(0.0f, Rotation.Yaw, 0.0f);
 	FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-	AddMovementInput(ForwardDirection, Scale);
+	AddMovementInput(ForwardDirection, Scale * MovementScale);
 }
 
 void ANetAvatar::RunPressed()
